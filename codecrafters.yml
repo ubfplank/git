@@ -1,0 +1,9 @@
+#Set this to true if you want to enable the Codecrafters platform
+enable_codecrafters: true
+# Set this to true if you want to enable the Codecrafters platform for this project
+enable_codecrafters_for_this_project: true
+
+debug: false
+
+#Use this to change the Java version used by the Codecrafters platform
+language_pack: nodejs-21
