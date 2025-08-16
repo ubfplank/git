@@ -15,14 +15,16 @@ switch (command) {
 }
 
 function createGitDirectory() {
+  const gitPath = path.join(process.cwd(), ".git");
+
   // cria as pastas básicas do Git
-  fs.mkdirSync(path.join(process.cwd(), ".git"), { recursive: true });
-  fs.mkdirSync(path.join(process.cwd(), ".git", "objects"), { recursive: true });
-  fs.mkdirSync(path.join(process.cwd(), ".git", "refs"), { recursive: true });
+  fs.mkdirSync(path.join(gitPath, "objects"), { recursive: true });
+  fs.mkdirSync(path.join(gitPath, "refs"), { recursive: true });
+  fs.mkdirSync(path.join(gitPath, "refs", "heads"), { recursive: true });
 
   // cria o arquivo HEAD que aponta para a branch principal
   fs.writeFileSync(
-    path.join(process.cwd(), ".git", "HEAD"),
+    path.join(gitPath, "HEAD"),
     "ref: refs/heads/main\n"
   );
 
