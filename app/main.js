@@ -1,30 +1,29 @@
-const fs = require("fs");
-const path = require("path");
+#!/usr/bin/env node
 
-// Você pode usar console.error para debug
-console.error("Logs from your program will appear aqui!");
+const fs = require('fs');
 
+// captura o comando passado na linha de comando
 const command = process.argv[2];
 
-switch (command) {
-  case "init":
-    createGitDirectory();
-    break;
-  default:
-    throw new Error(`Unknown command ${command}`);
+if (!command) {
+    console.log('Please provide a command (e.g., init)');
+    process.exit(1);
 }
 
-function createGitDirectory() {
-  // cria as pastas básicas do Git
-  fs.mkdirSync(path.join(process.cwd(), ".git"), { recursive: true });
-  fs.mkdirSync(path.join(process.cwd(), ".git", "objects"), { recursive: true });
-  fs.mkdirSync(path.join(process.cwd(), ".git", "refs"), { recursive: true });
-
-  // cria o arquivo HEAD que aponta para a branch principal
-  fs.writeFileSync(
-    path.join(process.cwd(), ".git", "HEAD"),
-    "ref: refs/heads/main\n"
-  );
-
-  console.log("Initialized git directory");
+// implementa o comando 'init'
+if (command === 'init') {
+    try {
+        // cria o diretório .git se não existir
+        if (!fs.existsSync('.git')) {
+            fs.mkdirSync('.git');
+            console.log('Initialized empty Git repository in .git/');
+        } else {
+            console.log('.git already exists');
+        }
+    } catch (err) {
+        console.error('Error creating .git directory:', err);
+    }
+} else {
+    console.log(`Command "${command}" not recognized`);
 }
+
